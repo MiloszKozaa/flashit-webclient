@@ -10,7 +10,29 @@ const Register = () => {
     confirmPassword: '',
   });
 
-  const handleSubmit = () => {
+  const sendData = (data: { email: string; password: string }) => {
+    fetch('https://node-server-ochre.vercel.app/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+  const handleSubmit = (event: any) => {
+    sendData(form);
+    event.preventDefault();
     formSet({
       email: '',
       password: '',

@@ -1,29 +1,99 @@
-.register_wrapper {
-    display: flex;
-    align-items: center;
+.brand {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+.brand_front,
+.brand_mid,
+.brand_back {
+  position: fixed;
+  filter: drop-shadow(0 0 60px rgb(0 0 0 / 0.5));
+}
+
+.brand_front {
+  animation: intro_front 1s ease-in-out 2s;
+  animation-fill-mode: both;
+}
+
+.brand_mid {
+  animation: intro_mid 1s ease-in-out 2.2s;
+  animation-fill-mode: both;
+}
+
+.brand_back {
+  animation: intro_back 1s ease-in-out 2.4s;
+  animation-fill-mode: both;
+}
+
+@keyframes intro_front {
+  0% {
+    transform: translateX(15%);
   }
-  
-  .brand {
-    background-repeat: no-repeat;
-    background-position: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    width: 50vw;
+  100% {
+    transform: translateX(-39%);
   }
-  
-  .brand img {
-    height: 200px;
+}
+
+@keyframes intro_mid {
+  0% {
+    transform: translateX(15%);
   }
-  
+  100% {
+    transform: translateX(-37%);
+  }
+}
+
+@keyframes intro_back {
+  0% {
+    transform: translateX(15%);
+  }
+  100% {
+    transform: translateX(-35%);
+  }
+}
+
+.brand_wrapper {
+  opacity: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px;
+  animation: intro_brand 1s ease-in-out 2s;
+  animation-fill-mode: both;
+}
+
+@keyframes intro_brand {
+  0% {
+    transform: translateX(60%);
+  }
+  100% {
+    transform: translateX(-80%);
+  }
+}
+
+.register_logo {
+  height: 200px;
+}
+
+.brand_name {
+  font-size: 50px;
+  font-weight: 900;
+  margin: 30px 0;
+}
+
+@media only screen and (max-width: 1500px) {
   .brand_wrapper {
-    margin-right: 200px;
+    opacity: 0%;
   }
-  
-  .brand_name {
-    font-size: 50px;
-    font-weight: 900;
-    margin: 30px 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .brand {
+    display: none;
   }
+}
