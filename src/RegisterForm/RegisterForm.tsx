@@ -1,9 +1,11 @@
-import Input from './Input';
-import Brand from './Brand';
+import UserInputForm from '../components/UserInputForm';
+import FormButton from '../components/FormButton';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import './Register.css';
+import './RegisterForm.css';
 
-const Register = () => {
+const RegisterForm = () => {
+  const navigate = useNavigate();
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
@@ -27,6 +29,9 @@ const Register = () => {
       })
       .catch(error => {
         console.error('Error:', error);
+        if (error === '400') {
+          navigate('/flashit-webclient/user/login');
+        }
       });
   };
 
@@ -75,25 +80,25 @@ const Register = () => {
   };
 
   return (
-    <div className='register_wrapper'>
-      <Brand />
-      <div className='register'>
-        <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
-        <form onSubmit={handleSubmit}>
-          {inputs.map((input: any) => (
-            <Input
-              key={input.id}
-              icon={input.type}
-              {...input}
-              value={form[input.name]}
-              onChange={onChange}
-            />
-          ))}
-          <button className='register_button'>Join Us</button>
-        </form>
-      </div>
+    <div className='register'>
+      <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
+      <form onSubmit={handleSubmit} id='register-form'>
+        {inputs.map((input: any) => (
+          <UserInputForm
+            key={input.id}
+            icon={input.type}
+            {...input}
+            value={form[input.name]}
+            onChange={onChange}
+          />
+        ))}
+        <FormButton name='Sign Up' form='register-form' />
+      </form>
+      <Link to='/flashit-webclient/user/login' className='form_helper'>
+        <p>Have already account?</p>Log In!
+      </Link>
     </div>
   );
 };
 
-export default Register;
+export default RegisterForm;

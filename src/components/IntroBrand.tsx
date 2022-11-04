@@ -1,4 +1,4 @@
-import './Brand.css';
+import './IntroBrand.css';
 
 const Brand = () => {
   return (

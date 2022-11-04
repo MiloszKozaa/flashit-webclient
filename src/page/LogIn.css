@@ -1,0 +1,14 @@
+.LogIn_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  height: 100vh;
+  width: 100vw;
+}
+
+@media only screen and (max-width: 1000px) {
+  .LogIn_wrapper {
+    width: 100vw;
+    justify-content: center;
+  }
+}
