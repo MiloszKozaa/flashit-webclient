@@ -23,15 +23,17 @@ const RegisterForm = () => {
         password: data.password,
       }),
     })
-      .then(response => response.json())
+      .then(response => {
+        response.json();
+        if (response.status === 400) {
+          navigate('/flashit-webclient/user/login');
+        }
+      })
       .then(data => {
         console.log('Success:', data);
       })
       .catch(error => {
         console.error('Error:', error);
-        if (error === '400') {
-          navigate('/flashit-webclient/user/login');
-        }
       });
   };
 

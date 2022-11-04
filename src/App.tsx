@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route path='/flashit-webclient' element={<FlashIt />} />
+        <Route path='/flashit-webclient' element={<FlashIt />}  />
         <Route path='/flashit-webclient/user'>
           <Route path='login' element={<LogIn />} />
           <Route path='register' element={<Register />} />
