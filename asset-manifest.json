@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/flashit-webclient/static/css/main.5de6ca72.css",
-    "main.js": "/flashit-webclient/static/js/main.0085e00e.js",
+    "main.css": "/flashit-webclient/static/css/main.2add05dc.css",
+    "main.js": "/flashit-webclient/static/js/main.ce771f71.js",
     "static/js/787.1218b605.chunk.js": "/flashit-webclient/static/js/787.1218b605.chunk.js",
     "index.html": "/flashit-webclient/index.html",
-    "main.5de6ca72.css.map": "/flashit-webclient/static/css/main.5de6ca72.css.map",
-    "main.0085e00e.js.map": "/flashit-webclient/static/js/main.0085e00e.js.map",
+    "main.2add05dc.css.map": "/flashit-webclient/static/css/main.2add05dc.css.map",
+    "main.ce771f71.js.map": "/flashit-webclient/static/js/main.ce771f71.js.map",
     "787.1218b605.chunk.js.map": "/flashit-webclient/static/js/787.1218b605.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5de6ca72.css",
-    "static/js/main.0085e00e.js"
+    "static/css/main.2add05dc.css",
+    "static/js/main.ce771f71.js"
   ]
 }
