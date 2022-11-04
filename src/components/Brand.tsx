@@ -4,15 +4,15 @@ const Brand = () => {
   return (
     <div className='brand'>
       <img
-        src={`${process.env.PUBLIC_URL}/register/reg_back.svg`}
+        src={`${process.env.PUBLIC_URL}/register_full/reg_back.svg`}
         className='brand_back'
       />
       <img
-        src={`${process.env.PUBLIC_URL}/register/reg_mid.svg`}
+        src={`${process.env.PUBLIC_URL}/register_full/reg_mid.svg`}
         className='brand_mid'
       />
       <img
-        src={`${process.env.PUBLIC_URL}/register/reg_front.svg`}
+        src={`${process.env.PUBLIC_URL}/register_full/reg_front.svg`}
         className='brand_front'
       />
       

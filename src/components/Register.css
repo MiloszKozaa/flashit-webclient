@@ -33,6 +33,12 @@
 
 @media only screen and (max-width: 1000px) {
   .register_wrapper {
+    width: 100vw;
     justify-content: center;
+  }
+  .register {
+    width: 100vw;
+    justify-content: center;
+    margin-bottom: 250px;
   }
 }
