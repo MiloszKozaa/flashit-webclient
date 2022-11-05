@@ -12,23 +12,6 @@ const LogInForm = () => {
 
   const sendData = (data: { email: string; password: string }) => {
     console.log(data);
-    // fetch('https://node-server-ochre.vercel.app/user', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     email: data.email,
-    //     password: data.password,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log('Success:', data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //   });
   };
 
   const handleSubmit = (event: any) => {
@@ -78,10 +61,9 @@ const LogInForm = () => {
         <FormButton name='Log In' form='LogIn-form' />
       </form>
 
-        <Link to='/flashit-webclient/user/register' className='form_helper'>
-          <p>Don't have already account?</p>Sign Up!
-        </Link>
-
+      <Link to='/flashit-webclient/user/register' className='form_helper'>
+        <p>Don't have already account?</p>Sign Up!
+      </Link>
     </div>
   );
 };
