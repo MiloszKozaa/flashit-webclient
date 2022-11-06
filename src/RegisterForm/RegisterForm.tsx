@@ -7,6 +7,7 @@ import './RegisterForm.css';
 
 const RegisterForm = () => {
   const [emailError, emailErrorSet] = useState(false);
+  const [loading, loadingSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
@@ -29,6 +30,7 @@ const RegisterForm = () => {
         if (response.status === 400) {
           emailErrorSet(true);
         }
+        loadingSet(false);
       })
       .then(data => {
         console.log('Success:', data);
@@ -39,6 +41,7 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = (event: any) => {
+    loadingSet(true);
     sendData(form);
     event.preventDefault();
     formSet({
@@ -100,7 +103,7 @@ const RegisterForm = () => {
             onChange={onChange}
           />
         ))}
-        <FormButton name='Sign Up' form='register-form' />
+        <FormButton name='Sign Up' form='register-form' loading={loading} />
       </form>
       <Link to='/flashit-webclient/user/login' className='form_helper'>
         <p>Have already account?</p>Log In!

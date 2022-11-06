@@ -5,15 +5,39 @@ import { useState } from 'react';
 import './LogInForm.css';
 
 const LogInForm = () => {
+  const [loading, loadingSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
   });
 
-  const sendData = () => {};
+  const getData = (data: { email: string; password: string }) => {
+    fetch('https://node-server-ochre.vercel.app/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    })
+      .then(response => {
+        response.json();
+        loadingSet(false);
+      })
+      .then(text => {
+        console.log('Success:', text);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   const handleSubmit = (event: any) => {
-    sendData();
+    loadingSet(true);
+    getData(form);
     event.preventDefault();
     formSet({
       email: '',
@@ -56,7 +80,7 @@ const LogInForm = () => {
             onChange={onChange}
           />
         ))}
-        <FormButton name='Log In' form='LogIn-form' />
+        <FormButton name='Log In' form='LogIn-form' loading={loading} />
       </form>
 
       <Link to='/flashit-webclient/user/register' className='form_helper'>
