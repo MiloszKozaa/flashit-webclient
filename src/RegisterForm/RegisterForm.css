@@ -3,7 +3,10 @@
   align-items: center;
   flex-direction: column;
   width: 50vw;
-  gap: 40px;
+}
+
+.register > img {
+  margin-bottom: 20px;
 }
 
 .form_helper {
@@ -16,15 +19,20 @@
   color: aliceblue;
   text-decoration: none;
   width: 300px;
+  margin-top: 20px;
 }
 .form_helper p {
   font-weight: 400;
+}
+
+.err {
+  height: 40px;
 }
 
 @media only screen and (max-width: 1000px) {
   .register {
     width: 100vw;
     justify-content: center;
-    margin-bottom: 200px;
+    margin-bottom: 180px;
   }
 }

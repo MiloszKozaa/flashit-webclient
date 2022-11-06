@@ -1,0 +1,23 @@
+.form-error {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 12px;
+  border: #fb6a50 3px solid;
+  border-radius: 10px;
+  padding: 0 20px;
+  background-color: #d1553f;
+  transition: 0.2s;
+  gap: 20px;
+}
+
+.form-error > img {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.form-error-hide {
+  display: none;
+  transition: 0.2s;
+}

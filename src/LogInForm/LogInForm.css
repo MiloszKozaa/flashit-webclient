@@ -17,7 +17,7 @@
   text-decoration: none;
   width: 300px;
 }
-.form_helper p {
+.form_helper > p {
   font-weight: 400;
 }
 

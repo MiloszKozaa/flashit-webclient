@@ -10,12 +10,10 @@ const LogInForm = () => {
     password: '',
   });
 
-  const sendData = (data: { email: string; password: string }) => {
-    console.log(data);
-  };
+  const sendData = () => {};
 
   const handleSubmit = (event: any) => {
-    sendData(form);
+    sendData();
     event.preventDefault();
     formSet({
       email: '',

@@ -1,11 +1,12 @@
 import UserInputForm from '../components/UserInputForm';
 import FormButton from '../components/FormButton';
+import FormError from '../components/FormError';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './RegisterForm.css';
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
+  const [emailError, emailErrorSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
@@ -26,7 +27,7 @@ const RegisterForm = () => {
       .then(response => {
         response.json();
         if (response.status === 400) {
-          navigate('/flashit-webclient/user/login');
+          emailErrorSet(true);
         }
       })
       .then(data => {
@@ -84,6 +85,11 @@ const RegisterForm = () => {
   return (
     <div className='register'>
       <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
+      <FormError
+        text='This account already exists'
+        display={emailError}
+        onClick={() => emailErrorSet(false)}
+      />
       <form onSubmit={handleSubmit} id='register-form'>
         {inputs.map((input: any) => (
           <UserInputForm
