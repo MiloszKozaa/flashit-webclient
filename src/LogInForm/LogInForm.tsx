@@ -1,10 +1,12 @@
 import UserInputForm from '../components/UserInputForm';
 import FormButton from '../components/FormButton';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { saveToken } from '../services/tokenServices';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import './LogInForm.css';
 
 const LogInForm = () => {
+  const navigator = useNavigate();
   const [loading, loadingSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
@@ -24,18 +26,23 @@ const LogInForm = () => {
       }),
     })
       .then(response => {
-        response.json();
         loadingSet(false);
+        console.log(response.text());
+        return response.text();
       })
-      .then(text => {
-        console.log('Success:', text);
+      .then(token => {
+        saveToken(token);
+        navigator('/flashit-webclient');
+        console.log('Success:', token);
       })
       .catch(error => {
         console.error('Error:', error);
       });
   };
-
   const handleSubmit = (event: any) => {
+    if (localStorage.getItem('x-auth-token') !== null) {
+      navigator('/flashit-webclient');
+    }
     loadingSet(true);
     getData(form);
     event.preventDefault();

@@ -32,9 +32,6 @@ const RegisterForm = () => {
         }
         loadingSet(false);
       })
-      .then(data => {
-        console.log('Success:', data);
-      })
       .catch(error => {
         console.error('Error:', error);
       });
