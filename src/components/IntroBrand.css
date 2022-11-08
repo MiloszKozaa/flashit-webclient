@@ -124,7 +124,7 @@
       transform: translateX(10%) translateY(15%) rotate(-90deg) scale(150%);
     }
     100% {
-      transform: translateX(15%) translateY(176%) rotate(-90deg) scale(150%);
+      transform: translateX(15%) translateY(170%) rotate(-90deg) scale(150%);
     }
   }
 
@@ -133,7 +133,7 @@
       transform: translateX(10%) translateY(15%) rotate(-90deg) scale(150%);
     }
     100% {
-      transform: translateX(15%) translateY(176%) rotate(-90deg) scale(150%);
+      transform: translateX(15%) translateY(170%) rotate(-90deg) scale(150%);
     }
   }
 
@@ -142,14 +142,14 @@
       transform: translateX(10%) translateY(15%) rotate(-90deg) scale(150%);
     }
     100% {
-      transform: translateX(15%) translateY(178%) rotate(-90deg) scale(150%);
+      transform: translateX(19%) translateY(175%) rotate(-90deg) scale(150%);
     }
   }
 
   .brand_wrapper {
     opacity: 100%;
     position: fixed;
-    height: 100vh;
+    height: -webkit-fill-available;
     width: 100vw;
     display: flex;
     justify-content: center;

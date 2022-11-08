@@ -38,11 +38,11 @@
 .error_message {
   display: none;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   width: 300px;
   margin-top: 5px;
   color: #fb6a50;
-  height: 35px;
+  height: 30px;
   background: none;
   grid-area: error_message;
   transition: 0.3s;
@@ -51,12 +51,12 @@
 .input_wrapper > input:invalid[focused='true'] ~ .error_message {
   display: flex;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   width: 300px;
   margin-top: 5px;
   background: none;
   color: #fb6a50;
-  height: 35px;
+  height: 30px;
   grid-area: error_message;
   transition: 0.3s;
 }

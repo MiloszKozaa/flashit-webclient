@@ -3,11 +3,18 @@
   align-items: center;
   flex-direction: column;
   width: 50vw;
-  gap: 40px;
+  gap: 20px;
+}
+
+.LogIn > form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .form_helper {
-  font-size: 15px;
+  font-size: 12px;
   gap: 6px;
   display: flex;
   align-items: center;
@@ -25,6 +32,6 @@
   .LogIn {
     width: 100vw;
     justify-content: center;
-    margin-bottom: 250px;
+    margin-bottom: 150px;
   }
 }

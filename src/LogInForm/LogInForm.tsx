@@ -27,8 +27,8 @@ const LogInForm = () => {
     })
       .then(response => {
         loadingSet(false);
-        console.log(response.text());
-        return response.text();
+        console.log(response.json());
+        return response.json();
       })
       .then(token => {
         saveToken(token);
