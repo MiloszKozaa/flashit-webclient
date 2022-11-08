@@ -32,7 +32,7 @@ const LogInForm = () => {
       })
       .then(token => {
         saveToken(token);
-        navigator('/flashit-webclient');
+        navigator('/');
         console.log('Success:', token);
       })
       .catch(error => {
@@ -41,7 +41,7 @@ const LogInForm = () => {
   };
   const handleSubmit = (event: any) => {
     if (localStorage.getItem('x-auth-token') !== null) {
-      navigator('/flashit-webclient');
+      navigator('/');
     }
     loadingSet(true);
     getData(form);
@@ -90,7 +90,7 @@ const LogInForm = () => {
         <FormButton name='Log In' form='LogIn-form' loading={loading} />
       </form>
 
-      <Link to='/flashit-webclient/user/register' className='form_helper'>
+      <Link to='/user/register' className='form_helper'>
         <p>Don't have already account?</p>Sign Up!
       </Link>
     </div>

@@ -102,7 +102,7 @@ const RegisterForm = () => {
         ))}
         <FormButton name='Sign Up' form='register-form' loading={loading} />
       </form>
-      <Link to='/flashit-webclient/user/login' className='form_helper'>
+      <Link to='/user/login' className='form_helper'>
         <p>Have already account?</p>Log In!
       </Link>
     </div>
