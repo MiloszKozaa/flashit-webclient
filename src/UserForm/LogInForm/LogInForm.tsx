@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './LogInForm.css';
 import FormLink from '../components/FormLink';
+import { CallApi } from '../services/api/apiClient';
+import { TokenModel } from '../models/auth/TokenModel';
 
 const LogInForm = () => {
   const navigator = useNavigate();
@@ -15,30 +17,31 @@ const LogInForm = () => {
   });
 
   const getData = (data: { email: string; password: string }) => {
-    fetch('https://node-server-ochre.vercel.app/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    })
-      .then(response => {
-        loadingSet(false);
-        console.log(response.json());
-        return response.json();
-      })
-      .then(token => {
-        saveToken(token);
-        navigator('/');
-        console.log('Success:', token);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    CallApi<TokenModel>('user/login', 'POST', { email: data.email, password: data.password}, (res) => {console.log(res.data.token)}, (err) => {console.log(err)})
+    // fetch('https://node-server-ochre.vercel.app/user/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: data.email,
+    //     password: data.password,
+    //   }),
+    // })
+    //   .then(response => {
+    //     loadingSet(false);
+    //     console.log(response.text());
+    //     return response.text();
+    //   })
+    //   .then(token => {
+    //     saveToken(token);
+    //     navigator('/flashit-webclient');
+    //     console.log('Success:', token);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //   });
   };
   const handleSubmit = (event: any) => {
     if (localStorage.getItem('x-auth-token') !== null) {
