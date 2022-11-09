@@ -5,79 +5,52 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './RegisterForm.css';
 import FormLink from '../components/FormLink';
+import { registerInputForms } from '../../models/form/registerInputForms';
+import { CallApi } from '../../services/api/apiClient';
 
 const RegisterForm = () => {
-  const [emailError, emailErrorSet] = useState(false);
-  const [loading, loadingSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
     confirmPassword: '',
+    loading: false,
+    error: false,
   });
 
   const sendData = (data: { email: string; password: string }) => {
-    fetch('https://node-server-ochre.vercel.app/user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    CallApi(
+      'user',
+      'POST',
+      { email: data.email, password: data.password },
+      res => {
+        console.log(res);
+        formSet({
+          email: '',
+          password: '',
+          confirmPassword: '',
+          loading: false,
+          error: false,
+        });
       },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    })
-      .then(response => {
-        response.json();
-        if (response.status === 400) {
-          emailErrorSet(true);
-        }
-        loadingSet(false);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      err => {
+        formSet({
+          ...form,
+          loading: false,
+          error: true,
+        });
+        console.log(err);
+      }
+    );
   };
 
   const handleSubmit = (event: any) => {
-    loadingSet(true);
     sendData(form);
     event.preventDefault();
     formSet({
-      email: '',
-      password: '',
-      confirmPassword: '',
+      ...form,
+      loading: true,
     });
   };
-
-  const inputs = [
-    {
-      id: 1,
-      name: 'email',
-      type: 'email',
-      placeholder: 'example@email.com',
-      errorMessage: 'It should be a valid email address!',
-      required: true,
-    },
-    {
-      id: 2,
-      name: 'password',
-      type: 'password',
-      placeholder: 'Password',
-      errorMessage:
-        'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-      required: true,
-    },
-    {
-      id: 3,
-      name: 'confirmPassword',
-      type: 'password',
-      placeholder: 'Confirm Password',
-      errorMessage: "Passwords don't match!",
-      pattern: form.password,
-      required: true,
-    },
-  ];
 
   const onChange = (event: any) => {
     formSet({ ...form, [event.target.name]: event.target.value });
@@ -88,11 +61,11 @@ const RegisterForm = () => {
       <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
       <FormError
         text='This account already exists'
-        display={emailError}
-        onClick={() => emailErrorSet(false)}
+        display={form.error}
+        onClick={() => formSet({ ...form, error: !form.error })}
       />
       <form onSubmit={handleSubmit} id='register-form'>
-        {inputs.map((input: any) => (
+        {registerInputForms(form.password).map((input: any) => (
           <UserInputForm
             key={input.id}
             icon={input.type}
@@ -101,7 +74,11 @@ const RegisterForm = () => {
             onChange={onChange}
           />
         ))}
-        <FormButton name='Sign Up' form='register-form' loading={loading} />
+        <FormButton
+          name='Sign Up'
+          form='register-form'
+          loading={form.loading}
+        />
       </form>
       <FormLink
         url='/user/login'

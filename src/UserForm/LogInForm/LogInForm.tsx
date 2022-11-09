@@ -4,75 +4,60 @@ import { saveToken } from '../../services/tokenServices';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './LogInForm.css';
+import { loginInputForm } from '../../models/form/loginInputForm';
 import FormLink from '../components/FormLink';
-import { CallApi } from '../services/api/apiClient';
-import { TokenModel } from '../models/auth/TokenModel';
+import { CallApi } from '../../services/api/apiClient';
+import { TokenModel } from '../../models/auth/TokenModel';
+import FormError from '../components/FormError';
 
 const LogInForm = () => {
   const navigator = useNavigate();
-  const [loading, loadingSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
+    loading: false,
+    error: false,
   });
 
   const getData = (data: { email: string; password: string }) => {
-    CallApi<TokenModel>('user/login', 'POST', { email: data.email, password: data.password}, (res) => {console.log(res.data.token)}, (err) => {console.log(err)})
-    // fetch('https://node-server-ochre.vercel.app/user/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     email: data.email,
-    //     password: data.password,
-    //   }),
-    // })
-    //   .then(response => {
-    //     loadingSet(false);
-    //     console.log(response.text());
-    //     return response.text();
-    //   })
-    //   .then(token => {
-    //     saveToken(token);
-    //     navigator('/flashit-webclient');
-    //     console.log('Success:', token);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //   });
+    CallApi<TokenModel>(
+      'user/login',
+      'POST',
+      { email: data.email, password: data.password },
+      res => {
+        console.log(res.data.token);
+        saveToken(res.data.token);
+        navigator('/');
+        formSet({
+          email: '',
+          password: '',
+          loading: false,
+          error: false,
+        });
+      },
+      err => {
+        console.log(err);
+        if (localStorage.getItem('x-auth-token') !== null) {
+          navigator('/');
+        }
+        formSet({
+          ...form,
+          loading: false,
+          error: true,
+        });
+      }
+    );
   };
+
   const handleSubmit = (event: any) => {
-    if (localStorage.getItem('x-auth-token') !== null) {
-      navigator('/');
-    }
-    loadingSet(true);
     getData(form);
     event.preventDefault();
     formSet({
       email: '',
       password: '',
+      loading: true,
     });
   };
-
-  const inputs = [
-    {
-      id: 1,
-      name: 'email',
-      type: 'email',
-      placeholder: 'example@email.com',
-      errorMessage: 'It should be a valid email address!',
-      required: true,
-    },
-    {
-      id: 2,
-      name: 'password',
-      type: 'password',
-      placeholder: 'Password',
-      required: true,
-    },
-  ];
 
   const onChange = (event: any) => {
     formSet({ ...form, [event.target.name]: event.target.value });
@@ -81,8 +66,13 @@ const LogInForm = () => {
   return (
     <div className='LogIn'>
       <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
+      <FormError
+        text='Incorrect email or password!'
+        display={form.error}
+        onClick={() => formSet({ ...form, error: !form.error })}
+      />
       <form onSubmit={handleSubmit} id='LogIn-form'>
-        {inputs.map((input: any) => (
+        {loginInputForm.map((input: any) => (
           <UserInputForm
             key={input.id}
             icon={input.type}
@@ -91,9 +81,8 @@ const LogInForm = () => {
             onChange={onChange}
           />
         ))}
-        <FormButton name='Log In' form='LogIn-form' loading={loading} />
+        <FormButton name='Log In' form='LogIn-form' loading={form.loading} />
       </form>
-
       <FormLink
         url='/user/register'
         text={`Don't have already account?`}
