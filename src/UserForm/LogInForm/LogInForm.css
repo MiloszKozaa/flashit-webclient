@@ -3,7 +3,6 @@
   align-items: center;
   flex-direction: column;
   width: 50vw;
-  gap: 20px;
 }
 
 .LogIn > form {
@@ -13,19 +12,8 @@
   flex-direction: column;
 }
 
-.form_helper {
-  font-size: 12px;
-  gap: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: aliceblue;
-  text-decoration: none;
-  width: 300px;
-}
-.form_helper > p {
-  font-weight: 400;
+.LogIn > img {
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 1000px) {

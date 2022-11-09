@@ -1,5 +1,5 @@
-import IntroBrand from '../components/IntroBrand';
-import LogInForm from '../LogInForm/LogInForm';
+import IntroBrand from '../UserForm/components/IntroBrand';
+import LogInForm from '../UserForm/LogInForm/LogInForm';
 import './LogIn.css';
 
 const Register = () => {

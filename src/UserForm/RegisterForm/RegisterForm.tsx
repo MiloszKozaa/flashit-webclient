@@ -1,24 +1,25 @@
 import UserInputForm from '../components/UserInputForm';
 import FormButton from '../components/FormButton';
-import { saveToken } from '../services/tokenServices';
+import FormError from '../components/FormError';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import './LogInForm.css';
+import { useState } from 'react';
+import './RegisterForm.css';
+import FormLink from '../components/FormLink';
 
-const LogInForm = () => {
-  const navigator = useNavigate();
+const RegisterForm = () => {
+  const [emailError, emailErrorSet] = useState(false);
   const [loading, loadingSet] = useState(false);
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
-  const getData = (data: { email: string; password: string }) => {
-    fetch('https://node-server-ochre.vercel.app/user/login', {
+  const sendData = (data: { email: string; password: string }) => {
+    fetch('https://node-server-ochre.vercel.app/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
       },
       body: JSON.stringify({
         email: data.email,
@@ -26,29 +27,25 @@ const LogInForm = () => {
       }),
     })
       .then(response => {
+        response.json();
+        if (response.status === 400) {
+          emailErrorSet(true);
+        }
         loadingSet(false);
-        console.log(response.json());
-        return response.json();
-      })
-      .then(token => {
-        saveToken(token);
-        navigator('/');
-        console.log('Success:', token);
       })
       .catch(error => {
         console.error('Error:', error);
       });
   };
+
   const handleSubmit = (event: any) => {
-    if (localStorage.getItem('x-auth-token') !== null) {
-      navigator('/');
-    }
     loadingSet(true);
-    getData(form);
+    sendData(form);
     event.preventDefault();
     formSet({
       email: '',
       password: '',
+      confirmPassword: '',
     });
   };
 
@@ -66,6 +63,18 @@ const LogInForm = () => {
       name: 'password',
       type: 'password',
       placeholder: 'Password',
+      errorMessage:
+        'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      required: true,
+    },
+    {
+      id: 3,
+      name: 'confirmPassword',
+      type: 'password',
+      placeholder: 'Confirm Password',
+      errorMessage: "Passwords don't match!",
+      pattern: form.password,
       required: true,
     },
   ];
@@ -75,9 +84,14 @@ const LogInForm = () => {
   };
 
   return (
-    <div className='LogIn'>
+    <div className='register'>
       <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
-      <form onSubmit={handleSubmit} id='LogIn-form'>
+      <FormError
+        text='This account already exists'
+        display={emailError}
+        onClick={() => emailErrorSet(false)}
+      />
+      <form onSubmit={handleSubmit} id='register-form'>
         {inputs.map((input: any) => (
           <UserInputForm
             key={input.id}
@@ -87,14 +101,15 @@ const LogInForm = () => {
             onChange={onChange}
           />
         ))}
-        <FormButton name='Log In' form='LogIn-form' loading={loading} />
+        <FormButton name='Sign Up' form='register-form' loading={loading} />
       </form>
-
-      <Link to='/user/register' className='form_helper'>
-        <p>Don't have already account?</p>Sign Up!
-      </Link>
+      <FormLink
+        url='/user/login'
+        text={`Have already account?`}
+        boldText='Log In!'
+      />
     </div>
   );
 };
 
-export default LogInForm;
+export default RegisterForm;

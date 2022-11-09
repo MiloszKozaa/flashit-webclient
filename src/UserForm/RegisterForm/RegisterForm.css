@@ -16,22 +16,6 @@
   flex-direction: column;
 }
 
-.form_helper {
-  font-size: 15px;
-  gap: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: aliceblue;
-  text-decoration: none;
-  width: 300px;
-  margin-top: 20px;
-}
-.form_helper p {
-  font-weight: 400;
-}
-
 .err {
   height: 40px;
 }
