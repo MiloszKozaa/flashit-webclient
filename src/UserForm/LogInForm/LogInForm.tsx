@@ -8,15 +8,18 @@ import { loginInputForm } from '../../models/form/loginInputForm';
 import FormLink from '../components/FormLink';
 import { CallApi } from '../../services/api/apiClient';
 import { TokenModel } from '../../models/auth/TokenModel';
-import FormError from '../components/FormError';
+import FormMessage from '../components/FormMessage';
 
 const LogInForm = () => {
+  const [isSuccessMessage, isSuccessMessageSet] = useState({
+    success: false,
+    error: false,
+  });
   const navigator = useNavigate();
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
     loading: false,
-    error: false,
   });
 
   const getData = (data: { email: string; password: string }) => {
@@ -25,25 +28,30 @@ const LogInForm = () => {
       'POST',
       { email: data.email, password: data.password },
       res => {
-        console.log(res.data.token);
         saveToken(res.data.token);
-        navigator('/');
+        navigator('/home');
         formSet({
           email: '',
           password: '',
           loading: false,
+        });
+        isSuccessMessageSet({
+          success: true,
           error: false,
         });
       },
       err => {
         console.log(err);
         if (localStorage.getItem('x-auth-token') !== null) {
-          navigator('/');
+          navigator('/home');
         }
+        isSuccessMessageSet({
+          success: false,
+          error: true,
+        });
         formSet({
           ...form,
           loading: false,
-          error: true,
         });
       }
     );
@@ -66,10 +74,11 @@ const LogInForm = () => {
   return (
     <div className='LogIn'>
       <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
-      <FormError
-        text='Incorrect email or password!'
-        display={form.error}
-        onClick={() => formSet({ ...form, error: !form.error })}
+      <FormMessage
+        errorText='Incorrect email or password!'
+        succesText='Logged in successfully!'
+        display={isSuccessMessage}
+        onClick={() => isSuccessMessageSet({ success: false, error: false })}
       />
       <form onSubmit={handleSubmit} id='LogIn-form'>
         {loginInputForm.map((input: any) => (

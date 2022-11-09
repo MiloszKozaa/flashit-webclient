@@ -1,24 +1,23 @@
-.form-error {
+.form-message {
   display: flex;
   align-items: center;
   height: 40px;
   font-size: 12px;
-  border: #fb6a50 3px solid;
+  border: 3px solid;
   border-radius: 10px;
   padding: 0 10px 0 20px;
-  background-color: #d1553f;
   transition: 0.2s;
   gap: 20px;
 }
 
-.form-error > img {
+.form-message > img {
   cursor: pointer;
   display: flex;
   padding: 10px;
   align-items: center;
 }
 
-.form-error-hide {
+.form-message-hide {
   display: none;
   transition: 0.2s;
 }

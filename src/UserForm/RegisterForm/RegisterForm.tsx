@@ -1,6 +1,6 @@
 import UserInputForm from '../components/UserInputForm';
 import FormButton from '../components/FormButton';
-import FormError from '../components/FormError';
+import FormMessage from '../components/FormMessage';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './RegisterForm.css';
@@ -9,12 +9,15 @@ import { registerInputForms } from '../../models/form/registerInputForms';
 import { CallApi } from '../../services/api/apiClient';
 
 const RegisterForm = () => {
+  const [isSuccessMessage, isSuccessMessageSet] = useState({
+    success: false,
+    error: false,
+  });
   const [form, formSet] = useState<any>({
     email: '',
     password: '',
     confirmPassword: '',
     loading: false,
-    error: false,
   });
 
   const sendData = (data: { email: string; password: string }) => {
@@ -29,13 +32,21 @@ const RegisterForm = () => {
           password: '',
           confirmPassword: '',
           loading: false,
+        });
+        isSuccessMessageSet({
+          success: true,
           error: false,
         });
       },
       err => {
         formSet({
-          ...form,
+          email: '',
+          password: '',
+          confirmPassword: '',
           loading: false,
+        });
+        isSuccessMessageSet({
+          success: false,
           error: true,
         });
         console.log(err);
@@ -59,10 +70,11 @@ const RegisterForm = () => {
   return (
     <div className='register'>
       <img src={`${process.env.PUBLIC_URL}/icon/userRegister.svg`} />
-      <FormError
-        text='This account already exists'
-        display={form.error}
-        onClick={() => formSet({ ...form, error: !form.error })}
+      <FormMessage
+        errorText='Account is already created!'
+        succesText='Account is created successfully!'
+        display={isSuccessMessage}
+        onClick={() => isSuccessMessageSet({ success: false, error: false })}
       />
       <form onSubmit={handleSubmit} id='register-form'>
         {registerInputForms(form.password).map((input: any) => (
