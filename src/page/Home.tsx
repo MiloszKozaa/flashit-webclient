@@ -1,24 +1,31 @@
-import { useState } from 'react';
-import { UserResponse } from '../models/User/UserResponse';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Decks from '../page/Decks';
+import Profile from '../page/Profile';
+import { useNavigate, Link, Routes, Route } from 'react-router-dom';
 import { CallApi } from '../services/api/apiClient';
 
 const FlashIt = () => {
   const navigator = useNavigate();
-  const token = localStorage.getItem('x-auth-token') || undefined;
-  const [userInfo, userInfoSet] = useState<UserResponse>();
+  const [userInfo, userInfoSet] = useState<any | undefined>();
+
+  useEffect(() => {
+    if (!localStorage.getItem('x-auth-token')) {
+      navigator('/');
+    }
+  }, []);
+
   const getInfo = () => {
     CallApi(
       'user',
       'GET',
       null,
       res => {
+        console.log(res);
         userInfoSet(res);
       },
       err => {
         console.error('Error:', err);
-      },
-      token
+      }
     );
   };
 
@@ -32,9 +39,17 @@ const FlashIt = () => {
         Log Out
       </button>
       <button onClick={getInfo}>Get your account info</button>
-      <div>id: {userInfo?.data._id}</div>
-      <div>email: {userInfo?.data.email}</div>
-      <div>username: {userInfo?.data.username}</div>
+      <div>id: {userInfo?._id}</div>
+      <div>email: {userInfo?.email}</div>
+      <div>username: {userInfo?.username}</div>
+      <div>
+        <Link to='/home/decks'>Decks</Link>
+        <Link to='/home/profile'>Profile</Link>
+      </div>
+      <Routes>
+        <Route path='/decks' element={<Decks />} />
+        <Route path='/profile' element={<Profile />} />
+      </Routes>
     </>
   );
 };

@@ -28,7 +28,8 @@ const LogInForm = () => {
       'POST',
       { email: data.email, password: data.password },
       res => {
-        saveToken(res.data.token);
+        console.log(res.token);
+        saveToken(res.token);
         navigator('/home');
         formSet({
           email: '',
