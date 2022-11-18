@@ -1,0 +1,23 @@
+.navbarButton {
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbarButton > a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.navbarButton > a > img {
+  display: flex;
+  align-items: center;
+}
+
+.navbarButton > a:hover {
+  background-color: #2d3136;
+}
+

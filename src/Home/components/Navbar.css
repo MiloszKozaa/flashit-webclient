@@ -1,0 +1,82 @@
+.navbar {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  background-color: #212529;
+  border-bottom: 2px solid #2d3136;
+}
+
+.navContent {
+  width: 800px;
+  min-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navBrand {
+  display: flex;
+  gap: 20px;
+}
+
+.navName {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.navDesktopLits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.burger {
+  display: none;
+}
+
+.navBurgerMenu {
+  display: none;
+}
+
+.navBurgerMenu > a:hover {
+  background-color: #2d3136;
+}
+
+@media only screen and (max-width: 850px) {
+  .navContent {
+    width: calc(100vw - 80px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navDesktopLits {
+    display: none;
+  }
+  .navName {
+    display: none;
+  }
+  .burger {
+    display: block;
+  }
+  .navBurgerMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    list-style: none;
+  }
+  .navBurgerMenu > a {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    color: #fff;
+    text-decoration: none;
+  }
+}
