@@ -1,0 +1,29 @@
+.inputWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  height: 40px;
+  background-color: #2d3136;
+  border-radius: 5px;
+}
+
+.inputWrapper > input {
+  font-size: 15px;
+  outline: none;
+  margin-left: 20px;
+  width: 100%;
+}
+
+.inputWrapper > img {
+  margin: 0 20px;
+}
+
+.inputWrapper > input::placeholder {
+  color: #75777a;
+}
+
+@media only screen and (max-width: 600px) {
+  .inputWrapper {
+    width: calc(100vw - 80px);
+  }
+}

@@ -1,0 +1,42 @@
+.flashItWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.flashItContainer {
+  width: 400px;
+}
+
+.titleName {
+  display: flex;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 30px 0;
+}
+
+.decks_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 400px;
+  height: 40px;
+  font-size: 17px;
+  background-color: #39ace7;
+  border-radius: 5px;
+}
+
+.decks_button:hover {
+  background-color: #0784b5;
+}
+
+@media only screen and (max-width: 600px) {
+  .flashItWrapper {
+    width: calc(100vw - 80px);
+  }
+  .decks_button {
+    width: calc(100vw - 80px);
+  }
+}

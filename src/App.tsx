@@ -4,14 +4,14 @@ import Register from './page/Register';
 import LogIn from './page/LogIn';
 import LandingPage from './page/LandingPage';
 import NotFound from './page/NotFound';
-import Home from './page/Home';
+import Application from './page/Application';
 
 function App() {
   return (
     <div className='App'>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/*' element={<Home />} />
+        <Route path='/*' element={<Application />} />
         <Route path='/user'>
           <Route path='login' element={<LogIn />} />
           <Route path='register' element={<Register />} />

@@ -14,6 +14,18 @@ code {
     monospace;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+input {
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 0;
+}
+
 img {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
