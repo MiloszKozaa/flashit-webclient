@@ -1,0 +1,30 @@
+.country {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2d3136;
+  border-radius: 5px;
+  width: 400px;
+  height: 60px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.country:hover {
+  background-color: #39ace7;
+  cursor: pointer;
+}
+
+.country_name {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.country_name > img {
+  margin: 0 20px;
+}
+
+.country > img {
+  margin: 0 20px;
+}

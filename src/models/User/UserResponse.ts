@@ -1,5 +1,8 @@
 export type UserResponse = {
-  status: number;
-  data: any;
-  error: string;
+  _id: string;
+  email: string;
+  password: null;
+  active: boolean;
+  username: string;
+  friends: [];
 };

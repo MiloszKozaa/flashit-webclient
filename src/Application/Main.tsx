@@ -7,15 +7,26 @@ import { CallApi } from '../services/api/apiClient';
 import DeckCreator from './Decks/Creator/DeckCreator';
 import Decks from './Decks/Decks';
 import './Main.css';
-import NativeLanguage from './Decks/Creator/NativeLanguage';
+import { UserResponse } from '../models/User/UserResponse';
 
 const Home = () => {
   const navigator = useNavigate();
+  const [user, userSet] = useState<UserResponse>();
 
   useEffect(() => {
     if (!localStorage.getItem('x-auth-token')) {
       navigator('/');
     }
+
+    CallApi<UserResponse>(
+      'user',
+      'GET',
+      null,
+      res => {
+        userSet(res);
+      },
+      err => {}
+    );
   }, []);
 
   return (
@@ -25,7 +36,7 @@ const Home = () => {
         <Routes>
           <Route path='/home' element={<HomePage />} />
           <Route path='/decks' element={<Decks />} />
-          <Route path='/decks/creator' element={<DeckCreator />} />
+          <Route path='/decks/creator' element={<DeckCreator user={user} />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>
       </div>
