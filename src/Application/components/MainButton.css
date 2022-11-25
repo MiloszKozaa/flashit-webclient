@@ -1,4 +1,4 @@
-.decks_button {
+.main_button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,12 +10,12 @@
   border-radius: 5px;
 }
 
-.decks_button:hover {
+.main_button:hover {
   background-color: #0784b5;
 }
 
 @media only screen and (max-width: 600px) {
-  .decks_button {
+  .main_button {
     width: calc(100vw - 80px);
   }
 }

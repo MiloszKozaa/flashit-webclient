@@ -4,18 +4,17 @@ import TabPattern from '../../components/TabPattern';
 import { CountryList } from '../../../models/CountryList';
 import CountryLink from '../../components/CountryLink';
 import { searchName } from '../../../services/search/searchName';
-import { deckModel } from '../../../models/deck/deckModel';
+import { folderModel } from '../../../models/folder/folderModel';
 import MainButton from '../../components/MainButton';
 import './DeckCreator.css';
 import { CallApi } from '../../../services/api/apiClient';
 import { UserResponse } from '../../../models/User/UserResponse';
 
 const DeckCreator = ({ user }: any) => {
-  const [deckForm, deckFormSet] = useState<deckModel>({
+  const [deckForm, deckFormSet] = useState<folderModel>({
     name: '',
     from_lang: '',
     to_lang: '',
-    owner_id: user._id,
   });
   const [countryName, countryNameSet] = useState('');
   const searchCountry = (e: any) => {
@@ -29,7 +28,12 @@ const DeckCreator = ({ user }: any) => {
       CallApi(
         'folder',
         'POST',
-        { deckForm },
+        {
+          name: deckForm.name,
+          from_lang: deckForm.from_lang,
+          to_lang: deckForm.to_lang,
+          owner_id: user.id,
+        },
         res => {
           console.log(`success: ${res}`);
         },
@@ -61,7 +65,11 @@ const DeckCreator = ({ user }: any) => {
                 country={country}
                 width='30'
                 onClick={() => {
-                  deckFormSet({ ...deckForm, from_lang: country.name });
+                  deckFormSet({
+                    ...deckForm,
+                    from_lang: country.name.toLowerCase(),
+                  });
+                  countryNameSet('');
                 }}
               />
             ))}
@@ -86,7 +94,11 @@ const DeckCreator = ({ user }: any) => {
                 country={country}
                 width='30'
                 onClick={() => {
-                  deckFormSet({ ...deckForm, to_lang: country.name });
+                  deckFormSet({
+                    ...deckForm,
+                    to_lang: country.name.toLowerCase(),
+                  });
+                  countryNameSet('');
                 }}
               />
             ))}
