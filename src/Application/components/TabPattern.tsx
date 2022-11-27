@@ -1,6 +1,13 @@
+import { ReactNode } from 'react';
 import './TabPattern.css';
 
-const DeckFormCreator = ({ header, describe, children }: any) => {
+type TabPatternType = {
+  header: string,
+  describe?: string,
+  children: ReactNode
+}
+
+const DeckFormCreator = ({ header, describe, children }: TabPatternType) => {
   return (
     <div className='tabPattern'>
       <div className='tabHeader'>

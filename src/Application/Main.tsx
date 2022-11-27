@@ -16,7 +16,6 @@ import { folderResponse } from '../models/folder/folderResponse';
 const Home = () => {
   const navigator = useNavigate();
   const [user, userSet] = useState<UserResponse>();
-
   useEffect(() => {
     getUserInfo(
       res => userSet(res),
@@ -35,6 +34,7 @@ const Home = () => {
           <Route path='/home' element={<HomePage />} />
           <Route path='/decks' element={<Decks />} />
           <Route path='/decks/creator' element={<DeckCreator user={user} />} />
+          
           <Route path='/profile' element={<Profile />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>

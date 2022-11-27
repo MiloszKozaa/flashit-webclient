@@ -1,37 +1,28 @@
 import { useEffect, useState } from 'react';
-import Input from '../../components/Input';
-import TabPattern from '../../components/TabPattern';
-import { CountryList } from '../../../models/CountryList';
-import CountryLink from '../../components/CountryLink';
-import { searchName } from '../../../services/search/searchName';
 import { folderModel } from '../../../models/folder/folderModel';
-import MainButton from '../../components/MainButton';
 import './DeckCreator.css';
 import { CallApi } from '../../../services/api/apiClient';
-import { UserResponse } from '../../../models/User/UserResponse';
+import NativeLanguage from './NativeLanguage';
+import LearningLanguage from './LearningLanguage';
+import DeckName from './DeckName';
+import { folderSendModel } from '../../../models/folder/folderSendModel';
 
 const DeckCreator = ({ user }: any) => {
-  const [deckForm, deckFormSet] = useState<folderModel>({
+  const [formIndex, formIndexSet] = useState(1);
+  const [data, dataSet] = useState<folderSendModel>({
     name: '',
     from_lang: '',
     to_lang: '',
   });
-  const [countryName, countryNameSet] = useState('');
-  const searchCountry = (e: any) => {
-    countryNameSet(e.target.value);
-  };
-  const setName = (e: any) => {
-    deckFormSet({ ...deckForm, name: e.target.value });
-  };
-  const onClick = () => {
-    if (deckForm.name !== '') {
+  const onSubmit = () => {
+    if (data.name !== '' && data.from_lang !== '' && data.to_lang !== '') {
       CallApi(
         'folder',
         'POST',
         {
-          name: deckForm.name,
-          from_lang: deckForm.from_lang,
-          to_lang: deckForm.to_lang,
+          name: data.name,
+          from_lang: data.from_lang,
+          to_lang: data.to_lang,
           owner_id: user.id,
         },
         res => {
@@ -41,81 +32,46 @@ const DeckCreator = ({ user }: any) => {
           console.log(err);
         }
       );
-      console.log(deckForm);
+      formIndexSet(1);
+      dataSet({
+        name: '',
+        from_lang: '',
+        to_lang: '',
+      });
+      console.log(data);
     }
+  };
+
+  const setDeckData = (data: Partial<folderSendModel>) => {
+    dataSet(prev => {
+      return { ...prev, ...data };
+    });
+  };
+
+  const moveFormIndex = () => {
+    formIndexSet(prev => {
+      return prev + 1;
+    });
   };
 
   return (
     <div>
-      {deckForm.from_lang === '' ? (
-        <TabPattern header='Step 1' describe='Choose native language'>
-          <Input
-            type='text'
-            value={countryName}
-            onChange={searchCountry}
-            icon='search'
-            placeholder='Find language'
-          />
-          <div className='countryList_wrapper'>
-            {CountryList.filter(country =>
-              searchName(countryName, country, country.name)
-            ).map((country, index) => (
-              <CountryLink
-                key={index}
-                country={country}
-                width='30'
-                onClick={() => {
-                  deckFormSet({
-                    ...deckForm,
-                    from_lang: country.name.toLowerCase(),
-                  });
-                  countryNameSet('');
-                }}
-              />
-            ))}
-          </div>
-        </TabPattern>
+      {formIndex === 1 ? (
+        <NativeLanguage
+          {...data}
+          setDeckData={setDeckData}
+          next={moveFormIndex}
+        />
       ) : null}
-      {deckForm.from_lang !== '' && deckForm.to_lang === '' ? (
-        <TabPattern header='Step 2' describe='Choose learning language'>
-          <Input
-            type='text'
-            value={countryName}
-            onChange={searchCountry}
-            icon='search'
-            placeholder='Find language'
-          />
-          <div className='countryList_wrapper'>
-            {CountryList.filter(country =>
-              searchName(countryName, country, country.name)
-            ).map((country, index) => (
-              <CountryLink
-                key={index}
-                country={country}
-                width='30'
-                onClick={() => {
-                  deckFormSet({
-                    ...deckForm,
-                    to_lang: country.name.toLowerCase(),
-                  });
-                  countryNameSet('');
-                }}
-              />
-            ))}
-          </div>
-        </TabPattern>
+      {formIndex === 2 ? (
+        <LearningLanguage
+          {...data}
+          setDeckData={setDeckData}
+          next={moveFormIndex}
+        />
       ) : null}
-      {deckForm.from_lang !== '' && deckForm.to_lang !== '' ? (
-        <TabPattern header={'Step 3'} describe='Type your deck name'>
-          <Input
-            type='text'
-            value={deckForm.name}
-            onChange={setName}
-            icon='keyboard'
-            placeholder='Type deck name'
-          />
-          <MainButton endpoint='/decks' name='create' onClick={onClick} />
-        </TabPattern>
+      {formIndex === 3 ? (
+        <DeckName {...data} setDeckData={setDeckData} onSubmit={onSubmit} />
       ) : null}
     </div>
   );

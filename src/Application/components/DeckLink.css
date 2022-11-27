@@ -1,0 +1,66 @@
+.deckLink_wrapper {
+  display: flex;
+  width: 400px;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+}
+.deckLink_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #39ace7;
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  margin: 0 20px;
+}
+
+.deckLink_button:hover {
+  background-color: #0784b5;
+}
+
+.deckLink_image {
+  align-self: center;
+  justify-self: center;
+  margin: 20px;
+}
+.deckLink_deckName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 10px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.deckLink_deckName > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.deckLink_deckDescription {
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 60%;
+}
+
+@media only screen and (max-width: 600px) {
+  .deckLink_wrapper {
+    width: calc(100vw - 80px);
+  }
+
+  .deckLink_button {
+    margin: 0;
+  }
+
+  .deckLink_image {
+    margin: 0;
+    margin-right: 20px;
+  }
+}

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { CallApi } from '../../services/api/apiClient';
 import { getFolders } from '../../services/folder/getFolders';
 import { folderResponse } from '../../models/folder/folderResponse';
+import DeckLink from '../components/DeckLink';
 
 const Decks = () => {
   const [folders, foldersSet] = useState<folderResponse>();
@@ -21,15 +22,13 @@ const Decks = () => {
   return (
     <TabPattern header='Your decks'>
       <MainButton endpoint='/decks/creator' name='Create' />
-      <ul>
-        {folders?.map((folder, key) => {
-          return (
-            <li key={key}>
-              {folder.name}, {folder.owner_id}
-            </li>
-          );
-        })}
-      </ul>
+      <div className='deckList_wrapper'>
+        {folders ? (
+          folders.map((folder, key) => <DeckLink key={key} folder={folder} />)
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
     </TabPattern>
   );
 };

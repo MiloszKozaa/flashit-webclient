@@ -8,25 +8,25 @@
 
 .tabHeader {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   width: 400px;
   margin-top: 20px;
 }
 
 .tabHeader > h1 {
   font-size: 25px;
-  font-weight: 800;
+  font-weight: 600;
   text-align: left;
   margin: 0;
 }
 
 .tabHeader > h2 {
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 600;
   color: #97989a;
   text-align: left;
   margin: 0;
-  margin-top: 15px;
 }
 
 @media only screen and (max-width: 600px) {

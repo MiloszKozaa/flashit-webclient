@@ -26,6 +26,10 @@ input {
   padding: 0;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 img {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */

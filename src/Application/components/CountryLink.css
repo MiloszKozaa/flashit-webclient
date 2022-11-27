@@ -31,6 +31,13 @@
 
 @media only screen and (max-width: 600px) {
   .country {
-    width: calc(100vw - 80px);
+    width: 100vw;
+  }
+
+  .country_name {
+    margin-left: 20px;
+  }
+  .country > img {
+    margin-right: 40px;
   }
 }
